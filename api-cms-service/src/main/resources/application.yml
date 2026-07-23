@@ -1,0 +1,99 @@
+spring:
+  config:
+    import: optional:file:.env[.properties]
+
+  application:
+    name: api-cms-service
+
+  app:
+    cookie:
+      secure: false
+      same-site: Lax
+      domain:
+      access-name: cms_access_token
+      refresh-name: cms_refresh_token
+
+  data:
+    mongodb:
+      uri: ${SPRING_DATA_MONGODB_URI}
+
+  mail:
+    host: ${SPRING_MAIL_HOST}
+    port: ${SPRING_MAIL_PORT}
+    username: ${SPRING_MAIL_USERNAME}
+    password: ${SPRING_MAIL_PASSWORD}
+    properties:
+      mail:
+        smtp:
+          auth: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH}
+          starttls:
+            enable: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE}
+
+  redis:
+    host: ${SPRING_REDIS_HOST}
+    port: ${SPRING_REDIS_PORT}
+    timeout: ${SPRING_REDIS_TIMEOUT}
+    database: ${SPRING_REDIS_DATABASE}
+
+
+jwt:
+  secret: ${JWT_SECRET}
+  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION}
+  refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION}
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${CLOUD_AWS_CREDENTIALS_ACCESS_KEY}
+      secret-key: ${CLOUD_AWS_CREDENTIALS_SECRET_KEY}
+    region:
+      static: ${CLOUD_AWS_REGION_STATIC}
+    s3:
+      bucket: ${CLOUD_AWS_S3_BUCKET}
+      presign-expiration-ms: 300000 # 5 phút
+
+firebase:
+  authentication:
+    key:
+      file: 'classpath:train-up-fireBase.json'
+
+
+server:
+  port: 3000
+
+servlet:
+  multipart:
+    max-file-size: 20MB
+    max-request-size: 20MB
+
+
+security:
+  cors:
+    enabled: true
+    allowed-origins: "*"
+    allowed-methods: GET,POST,PUT,DELETE,OPTIONS,PATCH
+    allowed-headers: Authorization,Content-Type
+
+
+  public-urls:
+    - /api/auth/**
+    - /api/test/**
+    - /api/v1/media/**
+    - /api/orders/*/status
+  protected-urls:
+    - urlPattern: /api/users/**
+      roles: [ADMIN]
+    - urlPattern: /api/categories/**
+      roles: [ADMIN]
+    - urlPattern: /api/products/**
+      roles: [ADMIN]
+    - urlPattern: /api/shops/**
+      roles: [ ADMIN ]
+    - urlPattern: /api/orders/**
+      roles: [ ADMIN ]
+    - urlPattern: /api/revenue/**
+      roles: [ ADMIN ]
+
+
+
+

@@ -1,0 +1,12 @@
+#spring:
+#  mail:
+#    host: smtp.gmail.com
+#    port: 587
+#    username: trainup18@gmail.com
+#    password: dyvh pobp slsz vhkw # Không phải mật khẩu Gmail login, mà là App Password
+#    properties:
+#      mail:
+#        smtp:
+#          auth: true
+#          starttls:
+#            enable: true
