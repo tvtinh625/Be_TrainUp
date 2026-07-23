@@ -41,8 +41,8 @@ spring:
     database: ${SPRING_REDIS_DATABASE:0}
 
 jwt:
-  secret: ${JWT_SECRET:jhs8shf82hsf9834hf8h48fh38fh8fh348fh384fh348fh}
-  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:3600000}
+  secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
+  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:86400000}
   refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:604800000}
 
 cloud:
