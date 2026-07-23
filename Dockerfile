@@ -4,33 +4,33 @@
 FROM maven:3.9.6-eclipse-temurin-21 AS builder
 WORKDIR /app
 
-# Copy root pom.xml and all source code
+# Copy full source code
 COPY . .
 
-# Package the multi-module project (skipping unit tests for fast build)
-RUN mvn clean package -DskipTests
+# Build api-portal-service and its dependent modules (-pl api-portal-service -am)
+RUN mvn clean package -pl api-portal-service -am -DskipTests
 
 # ========================================================
-# STAGE 2: Lightweight Runtime Image (Eclipse Temurin JRE 21)
+# STAGE 2: Lightweight Production Runtime Image (JRE 21 Alpine)
 # ========================================================
 FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
-# Create a non-root user for security
+# Create a secure non-root user
 RUN addgroup -S trainup && adduser -S trainup -G trainup
 
-# Copy compiled JAR from api-portal-service
-COPY --from=builder /app/api-portal-service/target/*.jar app.jar
+# Copy executable repackaged JAR from api-portal-service target directory
+COPY --from=builder /app/api-portal-service/target/api-portal-service-*.jar app.jar
 
-# Set permissions
+# Set permissions for non-root user
 RUN chown -R trainup:trainup /app
 USER trainup
 
-# Expose default port
+# Expose default HTTP port
 EXPOSE 8080
 
-# Configure JVM options for containerized environments
+# Production JVM optimizations for cloud environments (Render, Railway, Docker)
 ENV JAVA_OPTS="-XX:+UseG1GC -XX:MaxRAMPercentage=75.0 -Duser.timezone=Asia/Ho_Chi_Minh"
 
-# Run Spring Boot application with dynamic PORT env variable support for Render/Heroku
+# Run Spring Boot app with dynamic PORT binding
 ENTRYPOINT ["sh", "-c", "java $JAVA_OPTS -Dserver.port=${PORT:-8080} -jar app.jar"]
