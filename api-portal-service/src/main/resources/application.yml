@@ -75,8 +75,8 @@ servlet:
 security:
   cors:
     enabled: true
-    allowed-origins: "*"
-    allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+    allowed-origins: "http://localhost:5173,http://localhost:5174,http://localhost:3000,https://*.vercel.app"
+    allowed-methods: GET,POST,PUT,DELETE,OPTIONS,PATCH
     allowed-headers: Authorization,Content-Type,X-Recovery-Token,X-Reset-Token
 
 
