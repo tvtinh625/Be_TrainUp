@@ -36,5 +36,5 @@ build/
 # Bỏ qua các file cấu hình môi trường và credentials
 .env
 .env.*
-*.json
+
 !pom.xml
