@@ -8,5 +8,3 @@
 *.tmp
 .env
 .env.properties
-Dockerfile
-README.md

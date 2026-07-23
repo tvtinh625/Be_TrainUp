@@ -15,46 +15,45 @@ spring:
       access-name: portal_access_token
       refresh-name: portal_refresh_token
 
-
   application:
-    name: ${SPRING_APPLICATION_NAME}
+    name: ${SPRING_APPLICATION_NAME:api-portal-service}
 
   data:
     mongodb:
-      uri: ${SPRING_DATA_MONGODB_URI}
+      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/trainUp}
 
   mail:
-    host: ${SPRING_MAIL_HOST}
-    port: ${SPRING_MAIL_PORT}
-    username: ${SPRING_MAIL_USERNAME}
-    password: ${SPRING_MAIL_PASSWORD}
+    host: ${SPRING_MAIL_HOST:smtp.gmail.com}
+    port: ${SPRING_MAIL_PORT:587}
+    username: ${SPRING_MAIL_USERNAME:}
+    password: ${SPRING_MAIL_PASSWORD:}
     properties:
       mail:
         smtp:
-          auth: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH}
+          auth: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH:true}
           starttls:
-            enable: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE}
+            enable: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE:true}
 
   redis:
-    host: ${SPRING_REDIS_HOST}
-    port: ${SPRING_REDIS_PORT}
-    timeout: ${SPRING_REDIS_TIMEOUT}
-    database: ${SPRING_REDIS_DATABASE}
+    host: ${SPRING_REDIS_HOST:localhost}
+    port: ${SPRING_REDIS_PORT:6379}
+    timeout: ${SPRING_REDIS_TIMEOUT:6000}
+    database: ${SPRING_REDIS_DATABASE:0}
 
 jwt:
-  secret: ${JWT_SECRET}
-  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION}
-  refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION}
+  secret: ${JWT_SECRET:jhs8shf82hsf9834hf8h48fh38fh8fh348fh384fh348fh}
+  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:3600000}
+  refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:604800000}
 
 cloud:
   aws:
     credentials:
-      access-key: ${CLOUD_AWS_CREDENTIALS_ACCESS_KEY}
-      secret-key: ${CLOUD_AWS_CREDENTIALS_SECRET_KEY}
+      access-key: ${CLOUD_AWS_CREDENTIALS_ACCESS_KEY:}
+      secret-key: ${CLOUD_AWS_CREDENTIALS_SECRET_KEY:}
     region:
-      static: ${CLOUD_AWS_REGION_STATIC}
+      static: ${CLOUD_AWS_REGION_STATIC:ap-southeast-2}
     s3:
-      bucket: ${CLOUD_AWS_S3_BUCKET}
+      bucket: ${CLOUD_AWS_S3_BUCKET:nqt-s3-demo}
       presign-expiration-ms: 300000 # 5 phút
 
 firebase:
@@ -99,17 +98,16 @@ security:
       roles: [CUSTOMER, TRAINER, ADMIN]
 
 
-
-
 discord:
-  webhook-url: ${DISCORD_WEBHOOK_URL}
+  webhook-url: ${DISCORD_WEBHOOK_URL:}
 
 # =============================
 # PAYOS CONFIG
 # =============================
 payos:
-  client-id: ${PAYOS_CLIENT_ID}
-  api-key: ${PAYOS_API_KEY}
-  checksum-key: ${PAYOS_CHECKSUM_KEY}
+  client-id: ${PAYOS_CLIENT_ID:}
+  api-key: ${PAYOS_API_KEY:}
+  checksum-key: ${PAYOS_CHECKSUM_KEY:}
   return-url: http://localhost:5173
-  cancel-url: http://localhost:5173/order
+  cancel-url: http://localhost:5173/order
+
