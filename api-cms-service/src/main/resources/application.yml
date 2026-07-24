@@ -7,8 +7,8 @@ spring:
 
   app:
     cookie:
-      secure: false
-      same-site: Lax
+      secure: ${APP_COOKIE_SECURE:true}
+      same-site: ${APP_COOKIE_SAME_SITE:None}
       domain:
       access-name: cms_access_token
       refresh-name: cms_refresh_token
