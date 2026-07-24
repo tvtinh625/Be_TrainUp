@@ -46,14 +46,17 @@ public class AuthController {
     private final ICoreMailBoxService coreMailBoxService;
     private final HttpServletRequest request;
 
-    @Value("${app.cookie.secure:true}")
+    @Value("${app.cookie.secure:false}")
     private boolean cookieSecure;
 
-    @Value("${app.cookie.same-site:None}")  // Lax | Strict | None
+    @Value("${app.cookie.same-site:Lax}")  // Lax | Strict | None
     private String cookieSameSite;
 
     @Value("${app.cookie.domain:}") // có thể set .domain.com ở production
     private String cookieDomain;
+
+    @Value("${app.frontend-url:https://fe-trainup.vercel.app}")
+    private String frontendUrl;
 
 
     private String path() {
@@ -170,7 +173,7 @@ public class AuthController {
     @GetMapping("/verify-email")
     public RedirectView verifyEmail(@RequestParam("token") String token) {
         var resp = coreMailBoxService.confirmEmail(token);
-        String redirectUrl = "http://localhost:5173/verify-email?status=" + resp.getStatus();
+        String redirectUrl = frontendUrl + "/verify-email?status=" + resp.getStatus();
         return new RedirectView(redirectUrl);
     }
 

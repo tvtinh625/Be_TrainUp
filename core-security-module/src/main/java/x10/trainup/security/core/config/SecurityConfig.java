@@ -74,8 +74,6 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
-                    // Permit all OPTIONS preflight requests for CORS
-                    auth.requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll();
                     // Public URLs
                     securityProperties.getPublicUrls()
                             .forEach(url -> auth.requestMatchers(url).permitAll());
@@ -102,11 +100,12 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        // Allowed Origin Patterns: "*" echoes back the requesting origin dynamically (works with allowCredentials=true)
-        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setExposedHeaders(Arrays.asList("*"));
+        configuration.setAllowedOriginPatterns(
+                Arrays.asList(securityProperties.getCors().getAllowedOrigins().split(",")));
+        configuration.setAllowedMethods(
+                Arrays.asList(securityProperties.getCors().getAllowedMethods().split(",")));
+        configuration.setAllowedHeaders(
+                Arrays.asList(securityProperties.getCors().getAllowedHeaders().split(",")));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

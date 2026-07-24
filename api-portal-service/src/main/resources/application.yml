@@ -8,52 +8,54 @@ spring:
       - optional:file:${user.dir}/../.env[.properties]
 
   app:
+    frontend-url: ${APP_FRONTEND_URL:https://fe-trainup.vercel.app}
     cookie:
-      secure: ${APP_COOKIE_SECURE:true}
-      same-site: ${APP_COOKIE_SAME_SITE:None}
+      secure: false
+      same-site: Lax
       domain:
       access-name: portal_access_token
       refresh-name: portal_refresh_token
 
+
   application:
-    name: ${SPRING_APPLICATION_NAME:api-portal-service}
+    name: ${SPRING_APPLICATION_NAME}
 
   data:
     mongodb:
-      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/trainUp}
+      uri: ${SPRING_DATA_MONGODB_URI}
 
   mail:
-    host: ${SPRING_MAIL_HOST:smtp.gmail.com}
-    port: ${SPRING_MAIL_PORT:587}
-    username: ${SPRING_MAIL_USERNAME:}
-    password: ${SPRING_MAIL_PASSWORD:}
+    host: ${SPRING_MAIL_HOST}
+    port: ${SPRING_MAIL_PORT}
+    username: ${SPRING_MAIL_USERNAME}
+    password: ${SPRING_MAIL_PASSWORD}
     properties:
       mail:
         smtp:
-          auth: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH:true}
+          auth: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH}
           starttls:
-            enable: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE:true}
+            enable: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE}
 
   redis:
-    host: ${SPRING_REDIS_HOST:localhost}
-    port: ${SPRING_REDIS_PORT:6379}
-    timeout: ${SPRING_REDIS_TIMEOUT:6000}
-    database: ${SPRING_REDIS_DATABASE:0}
+    host: ${SPRING_REDIS_HOST}
+    port: ${SPRING_REDIS_PORT}
+    timeout: ${SPRING_REDIS_TIMEOUT}
+    database: ${SPRING_REDIS_DATABASE}
 
 jwt:
-  secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
-  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:86400000}
-  refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:604800000}
+  secret: ${JWT_SECRET}
+  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION}
+  refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION}
 
 cloud:
   aws:
     credentials:
-      access-key: ${CLOUD_AWS_CREDENTIALS_ACCESS_KEY:}
-      secret-key: ${CLOUD_AWS_CREDENTIALS_SECRET_KEY:}
+      access-key: ${CLOUD_AWS_CREDENTIALS_ACCESS_KEY}
+      secret-key: ${CLOUD_AWS_CREDENTIALS_SECRET_KEY}
     region:
-      static: ${CLOUD_AWS_REGION_STATIC:ap-southeast-2}
+      static: ${CLOUD_AWS_REGION_STATIC}
     s3:
-      bucket: ${CLOUD_AWS_S3_BUCKET:nqt-s3-demo}
+      bucket: ${CLOUD_AWS_S3_BUCKET}
       presign-expiration-ms: 300000 # 5 phút
 
 firebase:
@@ -62,7 +64,7 @@ firebase:
       file: 'classpath:train-up-fireBase.json'
 
 server:
-  port: ${PORT:8080}
+  port: ${SERVER_PORT}
 
 servlet:
   multipart:
@@ -76,8 +78,8 @@ security:
   cors:
     enabled: true
     allowed-origins: "*"
-    allowed-methods: GET,POST,PUT,DELETE,OPTIONS,PATCH
-    allowed-headers: "*"
+    allowed-methods: GET,POST,PUT,DELETE,OPTIONS
+    allowed-headers: Authorization,Content-Type,X-Recovery-Token,X-Reset-Token
 
 
   public-urls:
@@ -98,16 +100,17 @@ security:
       roles: [CUSTOMER, TRAINER, ADMIN]
 
 
+
+
 discord:
-  webhook-url: ${DISCORD_WEBHOOK_URL:}
+  webhook-url: ${DISCORD_WEBHOOK_URL}
 
 # =============================
 # PAYOS CONFIG
 # =============================
 payos:
-  client-id: ${PAYOS_CLIENT_ID:}
-  api-key: ${PAYOS_API_KEY:}
-  checksum-key: ${PAYOS_CHECKSUM_KEY:}
+  client-id: ${PAYOS_CLIENT_ID}
+  api-key: ${PAYOS_API_KEY}
+  checksum-key: ${PAYOS_CHECKSUM_KEY}
   return-url: http://localhost:5173
   cancel-url: http://localhost:5173/order
-

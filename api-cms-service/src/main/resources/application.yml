@@ -7,39 +7,39 @@ spring:
 
   app:
     cookie:
-      secure: ${APP_COOKIE_SECURE:true}
-      same-site: ${APP_COOKIE_SAME_SITE:None}
+      secure: false
+      same-site: Lax
       domain:
       access-name: cms_access_token
       refresh-name: cms_refresh_token
 
   data:
     mongodb:
-      uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27017/trainUp}
+      uri: ${SPRING_DATA_MONGODB_URI}
 
   mail:
-    host: ${SPRING_MAIL_HOST:smtp.gmail.com}
-    port: ${SPRING_MAIL_PORT:587}
-    username: ${SPRING_MAIL_USERNAME:}
-    password: ${SPRING_MAIL_PASSWORD:}
+    host: ${SPRING_MAIL_HOST}
+    port: ${SPRING_MAIL_PORT}
+    username: ${SPRING_MAIL_USERNAME}
+    password: ${SPRING_MAIL_PASSWORD}
     properties:
       mail:
         smtp:
-          auth: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH:true}
+          auth: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_AUTH}
           starttls:
-            enable: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE:true}
+            enable: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE}
 
   redis:
-    host: ${SPRING_REDIS_HOST:localhost}
-    port: ${SPRING_REDIS_PORT:6379}
-    timeout: ${SPRING_REDIS_TIMEOUT:6000}
-    database: ${SPRING_REDIS_DATABASE:0}
+    host: ${SPRING_REDIS_HOST}
+    port: ${SPRING_REDIS_PORT}
+    timeout: ${SPRING_REDIS_TIMEOUT}
+    database: ${SPRING_REDIS_DATABASE}
 
 
 jwt:
-  secret: ${JWT_SECRET:404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970}
-  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION:86400000}
-  refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION:604800000}
+  secret: ${JWT_SECRET}
+  access-token-expiration: ${JWT_ACCESS_TOKEN_EXPIRATION}
+  refresh-token-expiration: ${JWT_REFRESH_TOKEN_EXPIRATION}
 
 cloud:
   aws:
@@ -59,7 +59,7 @@ firebase:
 
 
 server:
-  port: ${PORT:3000}
+  port: 3000
 
 servlet:
   multipart:
@@ -72,7 +72,7 @@ security:
     enabled: true
     allowed-origins: "*"
     allowed-methods: GET,POST,PUT,DELETE,OPTIONS,PATCH
-    allowed-headers: "*"
+    allowed-headers: Authorization,Content-Type
 
 
   public-urls:

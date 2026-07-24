@@ -78,19 +78,41 @@ public class ChatService {
     }
 
     public List<ConversationDocument> getConversations(String status) {
-        if (status != null && !status.isBlank() && !"all".equalsIgnoreCase(status)) {
-            return conversationRepository.findByStatusOrderByUpdatedAtDesc(status);
+        try {
+            if (status != null && !status.isBlank() && !"all".equalsIgnoreCase(status)) {
+                return conversationRepository.findByStatusOrderByUpdatedAtDesc(status);
+            }
+            return conversationRepository.findAllByOrderByUpdatedAtDesc();
+        } catch (Exception e) {
+            log.error("[ChatService] Warning getting conversations with sort: {}", e.getMessage());
+            try {
+                if (status != null && !status.isBlank() && !"all".equalsIgnoreCase(status)) {
+                    return conversationRepository.findByStatus(status);
+                }
+                return conversationRepository.findAll();
+            } catch (Exception ex) {
+                log.error("[ChatService] Error fallback getConversations: ", ex);
+                return List.of();
+            }
         }
-        return conversationRepository.findAllByOrderByUpdatedAtDesc();
     }
 
     public ConversationDocument getUserConversation(String userId) {
-        return conversationRepository.findByUserId(userId)
-                .orElse(null);
+        try {
+            return conversationRepository.findByUserId(userId).orElse(null);
+        } catch (Exception e) {
+            log.error("[ChatService] Error getUserConversation: ", e);
+            return null;
+        }
     }
 
     public List<ChatMessageDocument> getMessages(String conversationId) {
-        return messageRepository.findByConversationIdOrderByCreatedAtAsc(conversationId);
+        try {
+            return messageRepository.findByConversationIdOrderByCreatedAtAsc(conversationId);
+        } catch (Exception e) {
+            log.error("[ChatService] Error getMessages: ", e);
+            return List.of();
+        }
     }
 
     public ConversationDocument assignConversation(String conversationId, String adminId, String adminName) {

@@ -14,7 +14,7 @@ import x10.trainup.mailbox.core.ports.MailSenderPort;
 import x10.trainup.order.core.usecases.ICoreOrderService;
 import x10.trainup.order.core.usecases.createOrder.CreateOrderReq;
 import x10.trainup.security.core.jwt.IJwtService;
-import x10.trainup.commons.domain.enums.OrderStatus;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -25,6 +25,9 @@ import java.util.Optional;
 @RequestMapping("api/orders")
 @RequiredArgsConstructor
 public class OrderController {
+
+    @Value("${app.frontend-url:https://fe-trainup.vercel.app}")
+    private String frontendUrl;
 
     private final ICoreOrderService orderService;
     private final MailSenderPort mailSenderPort;
@@ -131,7 +134,7 @@ public class OrderController {
             }
 
             String token = jwtService.generateGuestHistoryToken(email);
-            String trackingLink = "http://localhost:5173/guest/orders?token=" + token;
+            String trackingLink = frontendUrl + "/guest/orders?token=" + token;
 
             String html = buildOrderConfirmationHtml(recipientName, orderNumber, totalAmount, createdAt, items.toString(), trackingLink);
 

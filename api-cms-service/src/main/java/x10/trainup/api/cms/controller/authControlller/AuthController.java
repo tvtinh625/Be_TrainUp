@@ -43,10 +43,10 @@ public class AuthController {
     private final ICoreMailBoxService coreMailBoxService;
     private final HttpServletRequest request;
 
-    @Value("${app.cookie.secure:true}")
+    @Value("${app.cookie.secure:false}")
     private boolean cookieSecure;
 
-    @Value("${app.cookie.same-site:None}")  // Lax | Strict | None
+    @Value("${app.cookie.same-site:Lax}")  // Lax | Strict | None
     private String cookieSameSite;
 
     @Value("${app.cookie.domain:}") // có thể set .domain.com ở production

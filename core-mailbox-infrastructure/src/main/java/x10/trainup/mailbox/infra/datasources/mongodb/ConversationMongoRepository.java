@@ -14,4 +14,6 @@ public interface ConversationMongoRepository extends MongoRepository<Conversatio
     List<ConversationDocument> findAllByOrderByUpdatedAtDesc();
 
     List<ConversationDocument> findByStatusOrderByUpdatedAtDesc(String status);
+
+    List<ConversationDocument> findByStatus(String status);
 }
