@@ -74,6 +74,8 @@ public class SecurityConfig {
                 .exceptionHandling(ex -> ex.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
+                    // Permit all OPTIONS preflight requests for CORS
+                    auth.requestMatchers(org.springframework.http.HttpMethod.OPTIONS, "/**").permitAll();
                     // Public URLs
                     securityProperties.getPublicUrls()
                             .forEach(url -> auth.requestMatchers(url).permitAll());
