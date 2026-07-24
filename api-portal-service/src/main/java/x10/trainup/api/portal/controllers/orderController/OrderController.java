@@ -14,6 +14,7 @@ import x10.trainup.mailbox.core.ports.MailSenderPort;
 import x10.trainup.order.core.usecases.ICoreOrderService;
 import x10.trainup.order.core.usecases.createOrder.CreateOrderReq;
 import x10.trainup.security.core.jwt.IJwtService;
+import x10.trainup.commons.domain.enums.OrderStatus;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.time.LocalDateTime;
