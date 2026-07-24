@@ -102,12 +102,11 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOriginPatterns(
-                Arrays.asList(securityProperties.getCors().getAllowedOrigins().split(",")));
-        configuration.setAllowedMethods(
-                Arrays.asList(securityProperties.getCors().getAllowedMethods().split(",")));
-        configuration.setAllowedHeaders(
-                Arrays.asList(securityProperties.getCors().getAllowedHeaders().split(",")));
+        // Allowed Origin Patterns: "*" echoes back the requesting origin dynamically (works with allowCredentials=true)
+        configuration.setAllowedOriginPatterns(Arrays.asList("*"));
+        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"));
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+        configuration.setExposedHeaders(Arrays.asList("*"));
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
