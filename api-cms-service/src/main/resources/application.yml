@@ -30,6 +30,11 @@ spring:
             enable: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_STARTTLS_ENABLE:false}
           ssl:
             enable: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_SSL_ENABLE:true}
+            trust: ${SPRING_MAIL_PROPERTIES_MAIL_SMTP_SSL_TRUST:smtp.gmail.com}
+          socketFactory:
+            port: ${SPRING_MAIL_PORT:465}
+            class: javax.net.ssl.SSLSocketFactory
+            fallback: false
 
   redis:
     host: ${SPRING_REDIS_HOST}
