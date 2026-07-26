@@ -1,18 +1,24 @@
 package x10.trainup.mailbox.core.usecases.sendVerificationEmailUc;
 
-import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import x10.trainup.mailbox.core.ports.MailSenderPort;
 
 @Service
-@AllArgsConstructor
 public class sendVerificationEmailImpl implements SendVerificationEmailUc {
 
     private final MailSenderPort mailSenderPort;
 
+    @Value("${app.backend-url:${APP_BACKEND_URL:https://be-trainup.onrender.com}}")
+    private String backendUrl;
+
+    public sendVerificationEmailImpl(MailSenderPort mailSenderPort) {
+        this.mailSenderPort = mailSenderPort;
+    }
+
     @Override
     public void proccess(sendVerificationEmailReq req) {
-        String confirmLink = "http://localhost:8080/api/auth/verify-email?token=" + req.getToken();
+        String confirmLink = backendUrl + "/api/auth/verify-email?token=" + req.getToken();
         String subject = "Xác nhận email của bạn";
         String htmlBody = """
             <!DOCTYPE html>

@@ -30,8 +30,8 @@ public class OrderController {
     private final ICoreUserSerivce userService;
     private final HttpServletRequest request;
 
-    // URL FE — Guest sẽ truy cập vào đây để đánh giá
-    private static final String FRONTEND_REVIEW_URL = "http://localhost:5173/review-guest";
+    @Value("${app.frontend-url:https://fe-trainup.vercel.app}")
+    private String frontendUrl;
 
     private String path() {
         return request.getRequestURI();
@@ -144,7 +144,7 @@ public class OrderController {
                     ? order.getShippingAddress().getRecipientName()
                     : user.getUsername();
             String orderNumber    = order.getOrderNumber() != null ? order.getOrderNumber() : order.getId();
-            String reviewLink     = FRONTEND_REVIEW_URL + "?token=" + reviewToken;
+            String reviewLink     = frontendUrl + "/review-guest?token=" + reviewToken;
 
             StringBuilder products = new StringBuilder();
             if (order.getItems() != null) {

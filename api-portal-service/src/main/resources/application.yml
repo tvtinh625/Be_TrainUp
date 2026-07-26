@@ -119,5 +119,5 @@ payos:
   client-id: ${PAYOS_CLIENT_ID}
   api-key: ${PAYOS_API_KEY}
   checksum-key: ${PAYOS_CHECKSUM_KEY}
-  return-url: http://localhost:5173
-  cancel-url: http://localhost:5173/order
+  return-url: ${PAYOS_RETURN_URL:https://fe-trainup.vercel.app}
+  cancel-url: ${PAYOS_CANCEL_URL:https://fe-trainup.vercel.app/orders}
