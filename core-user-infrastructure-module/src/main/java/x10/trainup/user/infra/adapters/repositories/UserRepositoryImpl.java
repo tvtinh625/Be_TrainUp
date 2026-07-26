@@ -48,7 +48,7 @@ public class UserRepositoryImpl implements IUserRepository {
 
     @Override
     public Optional<UserEntity> findByEmail(String email) {
-        return mongoUserRepository.findByEmail(email)
+        return mongoUserRepository.findFirstByEmail(email)
                 .map(UserMapper::toEntity);
     }
 

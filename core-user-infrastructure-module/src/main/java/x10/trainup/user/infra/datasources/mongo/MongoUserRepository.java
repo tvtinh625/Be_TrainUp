@@ -20,6 +20,7 @@ import java.util.Optional;
 @Repository
 public interface MongoUserRepository extends MongoRepository<UserDocument, String> {
     boolean existsByEmail(String email);
+    Optional<UserDocument> findFirstByEmail(String email);
     Optional<UserDocument> findByEmail(String email);
 
 }
