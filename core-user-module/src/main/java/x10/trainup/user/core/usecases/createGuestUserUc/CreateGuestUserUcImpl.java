@@ -22,8 +22,8 @@ public class CreateGuestUserUcImpl implements ICreateGuestUserUc {
     private final IUserRepository userRepository;
     @Override
     public UserEntity execute(CreateGuestUserReq req) {
-        String normalizedPhone = req.getPhone().replaceAll("[^0-9]", "");
-        String username = req.getRecipientName();
+        String normalizedPhone = req.getPhone() != null ? req.getPhone().replaceAll("[^0-9]", "") : "";
+        String username = req.getRecipientName() != null ? req.getRecipientName() : "Khách hàng";
         String email;
         if (req.getEmail() == null || req.getEmail().trim().isEmpty()) {
             // Tạo email ảo dạng guest_<timestamp>@trainup.vn
