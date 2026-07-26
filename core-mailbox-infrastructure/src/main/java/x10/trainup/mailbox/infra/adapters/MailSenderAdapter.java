@@ -17,7 +17,7 @@ public class MailSenderAdapter implements MailSenderPort {
 
     private final JavaMailSender mailSender;
 
-    @Value("${SPRING_MAIL_FROM:${spring.mail.username:trainup18@gmail.com}}")
+    @Value("${SPRING_MAIL_FROM:${SPRING_MAIL_USERNAME:${spring.mail.username:quocthao2005@gmail.com}}}")
     private String mailFrom;
 
     public MailSenderAdapter(JavaMailSender mailSender) {
@@ -48,9 +48,9 @@ public class MailSenderAdapter implements MailSenderPort {
 
             mailSender.send(mimeMessage);
             System.out.println("✅ Email đã được gửi tới: " + to);
-        } catch (MessagingException | UnsupportedEncodingException e) {
+        } catch (Exception e) {
             e.printStackTrace();
-            System.out.println("❌ Lỗi khi gửi email: " + e.getMessage());
+            System.err.println("❌ Lỗi khi gửi email: " + e.getMessage());
         }
     }
 }
