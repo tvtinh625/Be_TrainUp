@@ -109,9 +109,17 @@ public class OrderController {
 
     private void sendOrderConfirmationEmail(OrderEntity order) {
         try {
-            if (order.getShippingAddress() == null) return;
+            if (order.getShippingAddress() == null) {
+                System.out.println("⚠️ [EMAIL SKIPPED] ShippingAddress is null");
+                return;
+            }
             String email = order.getShippingAddress().getEmail();
-            if (email == null || email.isBlank() || email.contains("@trainup.vn")) return;
+            if (email == null || email.isBlank() || email.contains("@trainup.vn")) {
+                System.out.println("⚠️ [EMAIL SKIPPED] Email invalid or guest virtual email: " + email);
+                return;
+            }
+
+            System.out.println("🚀 [EMAIL SENDING] Initiating email send to: " + email);
 
             String recipientName = order.getShippingAddress().getRecipientName();
             String orderNumber  = order.getOrderNumber() != null ? order.getOrderNumber() : order.getId();
@@ -143,6 +151,7 @@ public class OrderController {
         } catch (Exception e) {
             // Không để lỗi email block luồng đặt hàng
             System.err.println("⚠️ Lỗi gửi email xác nhận đơn hàng: " + e.getMessage());
+            e.printStackTrace();
         }
     }
 
